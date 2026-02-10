@@ -185,6 +185,9 @@ EOF
          Signed-By: /usr/share/keyrings/microsoft.gpg' >> /etc/apt/sources.list.d/vscode.sources
          sudo apt install apt-transport-https && sudo apt update && sudo apt install code
 
+         # Instalando o Claude code AI
+         curl -fsSL https://claude.ai/install.sh | bash | tee -a $LOGFILE
+
          source ~/.bashrc
 
          clear
@@ -249,7 +252,7 @@ EOF
          echo "Repositórios adicionados e atualizados!"
       ;;
 
-      4)
+      4) 
          LOGFILE="logs/[Asdf-Setup]-[$(date +%d-%m-%Y)-$(date +%H:%M)].log"
          mkdir logs
          touch $LOGFILE
