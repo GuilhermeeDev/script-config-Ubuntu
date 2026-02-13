@@ -12,8 +12,12 @@ sudo add-apt-repository universe -y
 sudo add-apt-repository multiverse -y
 sudo add-apt-repository restricted -y
 sudo add-apt-repository ppa:zhangsongcui3371/fastfetch -y
-sudo add-apt-repository ppa:libreoffice/ppa -y
-sudo add-apt-repository ppa:obsproject/obs-studio -y
+
+# Adiciona o pacote Office
+# sudo add-apt-repository ppa:libreoffice/ppa -y
+
+# Adiciona o pacote Obs-Studio
+# sudo add-apt-repository ppa:obsproject/obs-studio -y
 
 packages=(
    "build-essential"
@@ -48,27 +52,26 @@ packages=(
    "coreutils"
    "gpg"
    "plocate"
-   "libreoffice"
    "gnome-tweaks"
 )
 
 sudo apt update && sudo apt upgrade -y
-
 sudo ubuntu-drivers install | tee -a $LOGFILE
-
 sudo apt install -y "${packages[@]}" | tee -a $LOGFILE
 
 # # 2 - CRIAÇÃO DE PASTAS DE AMBIENTE E CUSTOMIZAÇÃO
-mkdir "$HOME/Apps"
-mkdir "$HOME/Customização"
-git clone https://github.com/daniruiz/dotfiles.git "$HOME/Customização" || echo "Dotfiles já clonados"
+mkdir -p "$HOME/Apps"
+mkdir -p "$HOME/Customização"
+git clone https://github.com/daniruiz/dotfiles.git "$HOME/Customização"
 
-mkdir "$HOME/.asdf"
+ASDF_DIR = "$HOME/.asdf"
 
-git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch v0.15.0
+git clone https://github.com/asdf-vm/asdf.git "$ASDF_DIR" --branch v0.15.0
 echo . "$HOME/.asdf/asdf.sh" | tee -a ~/.bashrc
 echo . "$HOME/.asdf/completions/asdf.bash" | tee -a ~/.bashrc
-source ~/.bashrc
+export ASDF_DIR="$ASDF_DIR"
+. "$ASDF_DIR/asdf.sh"
+. "$ASDF_DIR/completions/asdf.bash"
 
 # # Instalando Plugins do ASDF - Java, NodeJS, Ruby, Python, PHP, Elixir, Golang, Rust, Crystal, Scala, Julia, Perl
 # # Dependencias para NodeJS
@@ -125,13 +128,6 @@ sudo apt install apt-transport-https && sudo apt update && sudo apt install code
 
 # Instalando o Claude code AI
 curl -fsSL https://claude.ai/install.sh | bash | tee -a $LOGFILE
-
-# Instalando o AWS cli v1
-curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-unzip awscliv2.zip
-sudo ./aws/install
-
-source ~/.bashrc
 
 clear
 echo "Para concluir as configurações o sistema sera reiniciado em 5 seg!"
