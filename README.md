@@ -21,10 +21,9 @@ Esse é meu script atual para o ano de 2026 para distros ubuntu & Based's como `
 Clone este repositório:
 ```
 cd ~
-git clone https://github.com/GuilhermeeDev/script-config-Ubuntu.git
+git clone https://github.com/GuilhermeeDev/script-config-ubuntu.git
 ```
 Rode o `install.sh`:
 ```
-chmod +x ./install.sh
 ./install.sh
 ```
